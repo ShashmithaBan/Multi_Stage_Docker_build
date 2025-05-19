@@ -1,5 +1,43 @@
-# Multi Stage Docker Build
+🚀 Golang Calculator with Multi-Stage Docker Build
 
-The main purpose of choosing a golang based applciation to demostrate this example is golang is a statically-typed programming language that does not require a runtime in the traditional sense. Unlike dynamically-typed languages like Python, Ruby, and JavaScript, which rely on a runtime environment to execute their code, Go compiles directly to machine code, which can then be executed directly by the operating system.
+This repository demonstrates how to use multi-stage Docker builds to create a lean, production-ready Docker image for a simple Golang calculator application. It also highlights the benefits of using distroless images and explains why Ubuntu is used in the build stage.
 
-So the real advantage of multi stage docker build and distro less images can be understand with a drastic decrease in the Image size.
+⸻
+
+📦 What’s Inside?
+
+This project includes:
+	•	A standard Dockerfile for building a Go app.
+	•	A multi-stage Dockerfile for building and deploying a minimal, secure, and efficient container.
+	•	Explanations of multi-stage builds, image optimizations, distroless containers, and runtime vs. build stages.
+
+⸻
+
+🧱 What is a Multi-Stage Build?
+
+A multi-stage build allows you to use multiple FROM statements in a single Dockerfile to separate build-time and runtime environments.
+
+Instead of shipping build tools and compilers in the final image, we build the application in one stage and copy only the necessary output (like a binary) into a minimal base image (e.g., scratch).
+
+⸻
+
+✅ Benefits of Multi-Stage Builds
+	•	Smaller Image Sizes – Only includes runtime essentials.
+	•	Better Security – Fewer packages = smaller attack surface.
+	•	Optimized Builds – Stages can be tailored for specific tasks.
+	•	Efficient Caching – Speeds up rebuilds when changes are minimal.
+
+⸻
+
+🧪 Dockerfile: Multi-Stage Build Explained
+
+🔨 Build Stage
+FROM ubuntu AS build
+
+RUN apt-get update && apt-get install -y golang-go
+
+ENV GO111MODULE=off
+
+COPY . .
+
+RUN CGO_ENABLED=0 go build -o /app .
