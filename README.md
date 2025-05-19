@@ -36,6 +36,7 @@ Instead of shipping build tools and compilers in the final image, we build the a
 ### 🔨 Build Stage
 
 ```Dockerfile
+
 FROM ubuntu AS build
 
 RUN apt-get update && apt-get install -y golang-go
@@ -89,7 +90,7 @@ While scratch is great for runtime, we use ubuntu during the build phase because
 
 ### 📏 Image Size Comparison
 
-
+<img width="501" alt="Screenshot 2025-05-19 at 10 35 32" src="https://github.com/user-attachments/assets/1949e116-c47f-40aa-b7ef-f289dce92b86" />
 
 ### 🛠 How to Build and Run
 
